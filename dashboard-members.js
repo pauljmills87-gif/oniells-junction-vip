@@ -300,7 +300,11 @@ function renderMember(member) {
 
   const pinInput = document.createElement("input");
   pinInput.className = "member-pin-input";
-  pinInput.type = "password";
+  
+pinInput.type = "text";
+pinInput.inputMode = "numeric";
+pinInput.autocomplete = "off";
+pinInput.name = "vip-member-pin-reset-" + member.id;
   pinInput.inputMode = "numeric";
   pinInput.maxLength = 4;
   pinInput.placeholder = "New 4-digit PIN";
