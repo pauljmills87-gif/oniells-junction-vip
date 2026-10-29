@@ -216,7 +216,7 @@ loginForm.addEventListener(
         "Welcome, " + result.name +
         "! Your VIP membership has been verified.";
 
-      // Digital VIP card screen comes next.
+      window.location.assign("/card.html");
 
     } catch (error) {
       console.error(

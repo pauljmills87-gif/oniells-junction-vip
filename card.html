@@ -1,0 +1,449 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07130d">
+<meta name="robots" content="noindex,nofollow">
+
+<title>My VIP Membership</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --accent: #d8b66e;
+  --glow: #145b35;
+  --background: #06140d;
+}
+
+:root[data-venue="JR"] {
+  --accent: #efc377;
+  --glow: #802020;
+  --background: #170909;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: #fff8e8;
+  background:
+    radial-gradient(
+      ellipse at 50% 25%,
+      var(--glow),
+      var(--background) 72%
+    );
+}
+
+.wrap {
+  width: 100%;
+  max-width: 430px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #f0d8a6;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 27px 22px;
+  border-radius: 22px;
+  border: 1px solid var(--accent);
+  background:
+    linear-gradient(
+      150deg,
+      rgba(29, 49, 34, .98),
+      #080f0a 65%,
+      #14160f
+    );
+  box-shadow:
+    0 18px 55px #0008,
+    0 0 30px #ad894020;
+  text-align: center;
+}
+
+:root[data-venue="JR"] .card {
+  background:
+    linear-gradient(
+      150deg,
+      #361414,
+      #100a0a 65%,
+      #1b0c0c
+    );
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.logo {
+  display: block;
+  width: 82%;
+  max-width: 275px;
+  height: 140px;
+  object-fit: contain;
+  margin: 18px auto 7px;
+}
+
+h1 {
+  margin: 10px 0 4px;
+  color: var(--accent);
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+
+.subtitle {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #dbcfaf;
+}
+
+.divider {
+  margin: 23px auto;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--accent),
+      transparent
+    );
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #c6c3b1;
+  text-transform: uppercase;
+}
+
+.member-name {
+  margin: 10px 0 20px;
+  font-size: 25px;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.member-number {
+  font-size: 22px;
+  color: var(--accent);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.word-panel {
+  margin-top: 25px;
+  padding: 20px 12px;
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  background: #0005;
+}
+
+.word {
+  font-size: clamp(26px, 8vw, 38px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #ffe2a0;
+  margin: 13px 0;
+  overflow-wrap: anywhere;
+}
+
+.date {
+  font-size: 12px;
+  color: #e6d8b5;
+}
+
+.live-panel {
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #54e48a;
+  box-shadow: 0 0 12px #54e48a;
+  animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .25; }
+}
+
+.live-label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #9df0b7;
+  letter-spacing: 1px;
+}
+
+.clock {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #fff;
+  margin: 13px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.verified {
+  font-size: 12px;
+  color: #b6c5b2;
+}
+
+.loading {
+  text-align: center;
+  color: #f0d8a6;
+  font-size: 16px;
+  padding: 35px 15px;
+  line-height: 1.6;
+}
+
+.logout {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  background: transparent;
+  border: 1px solid #9c895f;
+  border-radius: 11px;
+  color: #f3ddad;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.logout:disabled {
+  opacity: .5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-dot { animation: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <a href="/" class="back">
+    ← Back to venue selection
+  </a>
+
+  <div id="loading" class="loading" role="status">
+    Verifying your VIP membership...
+  </div>
+
+  <article id="vip-card" class="card" hidden>
+
+    <div class="eyebrow">
+      OFFICIAL VIP MEMBERSHIP
+    </div>
+
+    <img
+      id="bar-logo"
+      class="logo"
+      alt="Venue logo"
+    >
+
+    <h1>VIP MEMBER</h1>
+
+    <div id="venue-name" class="subtitle"></div>
+
+    <div class="divider"></div>
+
+    <span class="field-label">
+      Member name
+    </span>
+
+    <div id="member-name" class="member-name"></div>
+
+    <span class="field-label">
+      Membership number
+    </span>
+
+    <div id="member-number" class="member-number"></div>
+
+    <section class="word-panel">
+
+      <span class="field-label">
+        Today's verification word
+      </span>
+
+      <div id="daily-word" class="word"></div>
+
+      <div id="word-date" class="date"></div>
+
+    </section>
+
+    <div class="live-panel">
+      <span class="live-dot"></span>
+      <span class="live-label">
+        LIVE MEMBERSHIP
+      </span>
+    </div>
+
+    <div id="clock" class="clock">--:--:--</div>
+
+    <div class="verified">
+      Show this live screen to staff
+    </div>
+
+  </article>
+
+  <button id="logout" class="logout" type="button" hidden>
+    Log out
+  </button>
+
+</div>
+
+<script>
+const card = document.getElementById("vip-card");
+const loading = document.getElementById("loading");
+const logoutButton = document.getElementById("logout");
+
+let currentDate = null;
+
+function updateClock() {
+  const clock = document.getElementById("clock");
+
+  clock.textContent = new Intl.DateTimeFormat(
+    "en-GB",
+    {
+      timeZone: "Europe/Lisbon",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }
+  ).format(new Date());
+}
+
+async function loadCard() {
+  try {
+    const response = await fetch("/api/member-card", {
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(
+        data.error || "Membership not available"
+      );
+    }
+
+    if (!["ON", "JR"].includes(data.venueCode)) {
+      throw new Error("Unknown venue");
+    }
+
+    const isOneills = data.venueCode === "ON";
+
+    document.documentElement.dataset.venue =
+      data.venueCode;
+
+    document.getElementById("bar-logo").src =
+      isOneills
+        ? "assets/oneills-logo.png"
+        : "assets/junction-logo.png";
+
+    document.getElementById("venue-name").textContent =
+      isOneills
+        ? "O'NEILLS · VILAMOURA MARINA"
+        : "THE JUNCTION ROADHOUSE · ALMANCIL";
+
+    document.getElementById("member-name").textContent =
+      data.fullName;
+
+    document.getElementById("member-number").textContent =
+      data.membershipNumber;
+
+    document.getElementById("daily-word").textContent =
+      data.wordOfTheDay;
+
+    document.getElementById("word-date").textContent =
+      data.date;
+
+    currentDate = data.date;
+
+    loading.hidden = true;
+    card.hidden = false;
+    logoutButton.hidden = false;
+
+    updateClock();
+
+  } catch (error) {
+    card.hidden = true;
+    logoutButton.hidden = true;
+    loading.hidden = false;
+
+    loading.textContent =
+      "Unable to load your VIP card: " +
+      error.message +
+      ". Please log in again.";
+  }
+}
+
+// Refresh live clock every second
+setInterval(updateClock, 1000);
+
+// Recheck membership and daily word periodically
+setInterval(loadCard, 120000);
+
+// Refresh when the user returns to the app
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) {
+    loadCard();
+  }
+});
+
+// Log out and clear the server-side session cookie
+logoutButton.addEventListener("click", async () => {
+  logoutButton.disabled = true;
+
+  try {
+    const response = await fetch("/api/member-logout", {
+      method: "POST",
+      credentials: "same-origin"
+    });
+
+    if (!response.ok) {
+      throw new Error("Logout failed");
+    }
+
+    window.location.replace("/");
+
+  } catch {
+    logoutButton.disabled = false;
+    alert("Could not log out. Please try again.");
+  }
+});
+
+loadCard();
+</script>
+
+</body>
+</html>
