@@ -1,6 +1,12 @@
 // Android Install VIP App button. Does not register a second service worker.
 (() => {
   "use strict";
+  // Register the EXISTING OneSignal worker for the home page, too.
+  // Do not register a second root-scope service worker: it can break push.
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/OneSignalSDKWorker.js", { scope: "/" })
+      .catch(error => console.warn("VIP install worker:", error));
+  }
   const isAndroid = /Android/i.test(navigator.userAgent || "");
   if (!isAndroid) return;
 
@@ -28,7 +34,7 @@
   }
 
   function refresh() {
-    button.hidden = installed || !onHome();
+    button.hidden = installed || !onHome() || !pendingPrompt;
     button.style.display = button.hidden ? "none" : "block";
   }
 
@@ -57,10 +63,7 @@
   }
 
   button.addEventListener("click", async () => {
-    if (!pendingPrompt) {
-      showInstructions();
-      return;
-    }
+    if (!pendingPrompt) return;
     const promptEvent = pendingPrompt;
     pendingPrompt = null;
     try {
@@ -79,6 +82,7 @@
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     pendingPrompt = event;
+    button.textContent = "↓ Install VIP App";
     refresh();
   });
 
