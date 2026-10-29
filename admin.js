@@ -46,6 +46,7 @@
       message.textContent = '';
       successDetail.textContent = `Signed in as ${data.role === 'owner' ? 'Owner' : 'Manager'}.`;
       success.hidden = false;
+      window.location.assign("/dashboard.html");
     } catch {
       password.value = '';
       message.textContent = 'Could not reach the login service. Try again.';
