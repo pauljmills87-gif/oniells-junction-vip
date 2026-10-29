@@ -1,0 +1,30 @@
+:root {font-family:Arial,Helvetica,sans-serif;color:#f8f2e6;background:#07100b;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+button,input{font:inherit}
+.admin-page{min-height:100svh;display:grid;place-items:center;padding:28px 16px;background:linear-gradient(160deg,#04100ac9 0%,#05120df5 55%,#18090c 100%),url('assets/oneills-login-bg.jpg') center/cover fixed}
+.admin-card{width:min(100%,430px);padding:22px 26px 24px;background:linear-gradient(145deg,#09160feF,#140d0eee);border:1px solid #d6af6580;border-radius:23px;box-shadow:0 18px 80px #000a;text-align:center}
+.back-link{display:block;width:max-content;color:#e9ddbd;text-decoration:none;font-size:13px;line-height:1.4;margin:0 0 24px}
+.eyebrow{font-size:11px;letter-spacing:.19em;font-weight:700;color:#deb96d;margin:0 0 6px}
+h1{font-size:clamp(34px,9vw,49px);line-height:1.1;letter-spacing:.04em;margin:0;background:linear-gradient(#ffedbc,#ba8b3b);color:transparent;background-clip:text;-webkit-background-clip:text}
+h1 span{font-size:.55em;vertical-align:middle;letter-spacing:.1em}
+.subtitle{margin:9px 0 18px;font-size:14px;color:#efede5c9}
+.venue-brands{display:grid;grid-template-columns:1fr 1px 1fr;align-items:center;gap:14px;min-height:90px;margin:6px 0 20px}
+.venue-brands img{display:block;width:100%;max-height:98px;object-fit:contain;filter:drop-shadow(0 3px 8px #0009)}
+.venue-brands span{height:60px;background:linear-gradient(transparent,#d9bb88aa,transparent)}
+label{display:block;text-align:left;font-size:13px;font-weight:bold;color:#f3e9d6;margin:15px 0 7px}
+input{display:block;width:100%;min-height:50px;padding:12px 13px;border-radius:10px;border:1px solid #d6bb8999;background:#fffdf6;color:#171a18;font-size:16px;outline:none}
+input:focus-visible{outline:3px solid #e4bc72;outline-offset:2px}
+.password-row{display:flex;border-radius:10px;overflow:hidden;background:#fffdf6}
+.password-row input{border-radius:10px 0 0 10px;min-width:0;border-right:0;flex:1}
+.password-row button{border:1px solid #d6bb8999;border-left:0;background:#fffdf6;color:#33443b;font-size:13px;font-weight:700;padding:0 12px}
+.primary-button{width:100%;min-height:51px;border:0;border-radius:10px;background:linear-gradient(#f4dc9a,#bd9250);color:#181610;font-size:16px;font-weight:900;letter-spacing:.03em;margin:23px 0 0;cursor:pointer}
+.primary-button:disabled{opacity:.65;cursor:wait}
+button:focus-visible,a:focus-visible{outline:3px solid white;outline-offset:3px}
+.message{font-size:13px;line-height:1.5;min-height:19px;color:#f0dfb8;margin:14px 0 0}
+#login-success{border:1px solid #c9a46880;border-radius:12px;padding:16px 12px;margin-top:16px;background:#182a1a}
+#login-success h2{font-size:21px;margin:0 0 6px;color:#f4d188}
+#login-success p{font-size:13px;line-height:1.4}
+.return-link{display:inline-block;color:#f3d38f;margin:8px 0 0}
+.footer{font-size:11px;color:#cec8b6a0;margin:22px 0 0}
+@media(max-height:680px){.admin-page{padding:10px}.admin-card{padding:15px 20px}.back-link{margin-bottom:8px}.venue-brands{margin:2px 0;min-height:60px}.venue-brands img{max-height:65px}label{margin-top:9px}.primary-button{margin-top:13px}}

@@ -1,0 +1,27 @@
+O'NEILLS + JUNCTION VIP APP — FIVE-TAP ADMIN LOGIN ADD-ON
+
+1. Copy these four files into the ROOT of your existing project:
+   admin.html
+   admin.css
+   admin.js
+   admin-access.js
+
+2. In your existing index.html, find:
+   <script src="app.js" defer></script>
+
+   On the next line add:
+   <script src="admin-access.js" defer></script>
+
+3. SAVE index.html. DO NOT replace your working app.js, CSS, graphics, or api folder.
+
+4. Make sure the previously created api/admin-login.js is in your local project's api folder.
+
+5. In VS Code Source Control: stage, commit and Sync Changes.
+
+6. Visit the live VIP home page, click/tap the BIG GOLD VIP letters FIVE times within THREE seconds.
+   You should land on /admin.html, enter your existing Supabase admin email/password.
+
+7. Successful authentication shows 'Access verified'. The actual management dashboard is built NEXT.
+
+SECURITY: 5 taps only opens a public login page; it does not grant access. Never embed
+Supabase SECRET key, PIN pepper, or session secret into frontend files.

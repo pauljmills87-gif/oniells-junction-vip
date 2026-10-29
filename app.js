@@ -289,3 +289,4 @@ window.addEventListener("hashchange", showRoute);
 // START APPLICATION
 
 showRoute();
+<script src="admin-access.js" defer></script>

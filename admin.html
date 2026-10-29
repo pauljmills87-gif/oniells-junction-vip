@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d120e">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administrator Sign In | VIP Loyalty App</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <main class="admin-page">
+    <div class="admin-card">
+      <a class="back-link" href="/">← Back to VIP app</a>
+      <p class="eyebrow">O'NEILLS × THE JUNCTION</p>
+      <h1>VIP <span>ADMIN</span></h1>
+      <p class="subtitle">Secure management sign-in</p>
+      <div class="venue-brands" aria-label="O'Neills and The Junction">
+        <img src="assets/oneills-logo.png" alt="O'Neills Vilamoura Marina logo">
+        <span aria-hidden="true"></span>
+        <img src="assets/junction-logo.png" alt="The Junction Roadhouse logo">
+      </div>
+      <form id="admin-login-form" novalidate>
+        <label for="admin-email">Administrator email</label>
+        <input id="admin-email" type="email" autocomplete="username" inputmode="email" required maxlength="254" placeholder="Your admin email">
+        <label for="admin-password">Password</label>
+        <div class="password-row">
+          <input id="admin-password" type="password" autocomplete="current-password" required placeholder="Your password">
+          <button id="show-password" type="button" aria-pressed="false">Show</button>
+        </div>
+        <button id="admin-submit" class="primary-button" type="submit">SIGN IN →</button>
+      </form>
+      <p class="message" id="admin-message" role="status" aria-live="polite"></p>
+      <section id="login-success" hidden aria-labelledby="success-title">
+        <h2 id="success-title">Access verified</h2>
+        <p id="success-detail">Your administrator account is authenticated.</p>
+        <p class="next-step">The management dashboard is the next build step.</p>
+        <a class="return-link" href="/">Return to VIP app</a>
+      </section>
+      <p class="footer">Management access requires an authorised account.</p>
+    </div>
+  </main>
+</body>
+</html>
