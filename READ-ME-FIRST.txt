@@ -1,0 +1,21 @@
+VIP APP — ANDROID INSTALL BUTTON + GOLD VIP ICON
+
+1. Extract this ZIP.
+2. Copy the entire 'icons' folder plus 'manifest.webmanifest' and 'vip-install.js' into the ROOT of your VS Code oniells-junction-vip project (same level as index.html and app.js).
+3. Open index.html. Immediately before </head>, add:
+
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/vip-180.png">
+<script src="/vip-install.js" defer></script>
+
+4. Save, then use VS Code terminal:
+
+git add -A
+git commit -m "Add VIP Android install button and app icon"
+git push origin main
+
+5. Wait for Vercel Ready. Open the root app URL in Chrome on an Android phone (NOT in WhatsApp/Instagram's built-in browser):
+https://oniells-junction-vip.vercel.app/
+Tap 'Install VIP App'. Accept Chrome's install prompt. If no prompt is ready, the button will show Chrome's menu instructions.
+
+SAFETY: Do NOT change or replace OneSignalSDKWorker.js or install another service worker; it handles existing push subscriptions. Installing as PWA does not require publishing an APK or Google Play listing.
