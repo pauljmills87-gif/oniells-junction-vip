@@ -5,19 +5,137 @@
 <!-- OneSignal Web Push Notifications -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
-<script>
-  window.OneSignalDeferred =
-    window.OneSignalDeferred || [];
 
-  OneSignalDeferred.push(async function(OneSignal) {
+<script>
+window.OneSignalDeferred =
+  window.OneSignalDeferred || [];
+
+OneSignalDeferred.push(async function(OneSignal) {
+  const enable = document.getElementById("push-enable");
+  const disable = document.getElementById("push-disable");
+  const status = document.getElementById("push-status");
+
+  try {
     await OneSignal.init({
       appId: "6e5d550d-4ff2-4572-a8b5-82f2bdf2641f",
-      safari_web_id: "web.onesignal.auto.516349e1-446e-4cea-8b68-2396bd3ac49a",
+      safari_web_id:
+        "web.onesignal.auto.516349e1-446e-4cea-8b68-2396bd3ac49a",
       notifyButton: {
         enable: false
       }
     });
-  });
+
+    function updateDisplay() {
+      if (!OneSignal.Notifications.isPushSupported()) {
+        enable.hidden = true;
+        disable.hidden = true;
+        status.textContent =
+          "Push notifications are not supported " +
+          "in this browser.";
+        return;
+      }
+
+      const subscribed =
+        OneSignal.User.PushSubscription.optedIn;
+
+      enable.hidden = subscribed;
+      disable.hidden = !subscribed;
+
+      if (subscribed) {
+        status.textContent =
+          "Event notifications are enabled.";
+      } else if (
+        OneSignal.Notifications.permissionNative === "denied"
+      ) {
+        status.textContent =
+          "Notifications are blocked in your browser settings.";
+      } else {
+        status.textContent =
+          "Receive event announcements from your bar. " +
+          "You can turn these off at any time.";
+      }
+    }
+
+    function updateVenueTag() {
+      const venue =
+        document.documentElement.dataset.venue;
+
+      if (
+        OneSignal.User.PushSubscription.optedIn &&
+        ["ON", "JR"].includes(venue)
+      ) {
+        OneSignal.User.addTag("vip_venue", venue);
+      }
+    }
+
+    enable.addEventListener("click", async () => {
+      enable.disabled = true;
+      status.textContent = "Enabling notifications...";
+
+      try {
+        await OneSignal.User.PushSubscription.optIn();
+
+        updateDisplay();
+        updateVenueTag();
+
+        if (!OneSignal.User.PushSubscription.optedIn) {
+          status.textContent =
+            "Notifications were not enabled. " +
+            "Check your browser permissions.";
+        }
+      } catch (error) {
+        console.error("Notification opt-in failed:", error);
+        status.textContent =
+          "Could not enable notifications. Please try again.";
+      } finally {
+        enable.disabled = false;
+      }
+    });
+
+    disable.addEventListener("click", async () => {
+      disable.disabled = true;
+
+      try {
+        await OneSignal.User.PushSubscription.optOut();
+        OneSignal.User.removeTag("vip_venue");
+
+        updateDisplay();
+        status.textContent =
+          "Event notifications have been turned off.";
+      } catch (error) {
+        console.error("Notification opt-out failed:", error);
+        status.textContent =
+          "Could not turn off notifications.";
+      } finally {
+        disable.disabled = false;
+      }
+    });
+
+    OneSignal.User.PushSubscription.addEventListener(
+      "change",
+      () => {
+        updateDisplay();
+        updateVenueTag();
+      }
+    );
+
+    window.addEventListener(
+      "vip-member-loaded",
+      updateVenueTag
+    );
+
+    updateDisplay();
+    updateVenueTag();
+
+  } catch (error) {
+    console.error("OneSignal setup failed:", error);
+    status.textContent =
+      "Event notifications are currently unavailable.";
+    enable.disabled = true;
+  }
+});
+</script>
+
 </script>
 
 <head>
@@ -260,6 +378,9 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .live-dot { animation: none; }
 }
+[hidden] {
+  display: none !important;
+}
 </style>
 </head>
 
@@ -329,6 +450,35 @@ h1 {
     <div class="verified">
       Show this live screen to staff
     </div>
+
+
+<div style="margin-top:22px">
+
+  <button
+    id="push-enable"
+    class="logout"
+    type="button">
+    Enable Event Notifications
+  </button>
+
+  <button
+    id="push-disable"
+    class="logout"
+    type="button"
+    hidden>
+    Turn Off Notifications
+  </button>
+
+  <p
+    id="push-status"
+    role="status"
+    aria-live="polite"
+    style="font-size:12px;color:#d8c79e;line-height:1.5">
+    Get event announcements from your bar.
+    Optional — you can unsubscribe anytime.
+  </p>
+
+</div>
 
   </article>
 
@@ -407,6 +557,7 @@ async function loadCard() {
       data.date;
 
     currentDate = data.date;
+window.dispatchEvent(new Event("vip-member-loaded"));
 
     loading.hidden = true;
     card.hidden = false;
