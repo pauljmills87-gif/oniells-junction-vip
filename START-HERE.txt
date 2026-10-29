@@ -1,0 +1,23 @@
+O'NEILLS + THE JUNCTION — VIP LOYALTY APP | UPDATED STEP 1
+
+These files REPLACE the previous starter files.
+
+1. Open Desktop > APPS AND GAMES > oniells-junction-vip.
+2. Extract this ZIP. Copy everything from inside into your existing oniells-junction-vip folder.
+3. When Windows asks whether to replace files, select REPLACE.
+4. Open index.html by double-clicking it.
+5. Tap the O'Neills logo button to open the branded O'Neills login. Tap back and choose Junction to see its red login.
+6. Both screens contain real member-number and 4-digit PIN inputs, plus Show/Hide PIN and Forgot PIN message.
+7. The logins are previews only. Do not enter genuine customer PINs yet. Next step: Supabase database and secure server-side authentication.
+
+FILES
+index.html
+styles.css
+app.js
+assets/vip-home.png
+assets/oneills-logo.png
+assets/junction-logo.png
+assets/oneills-login-bg.jpg
+assets/junction-login-bg.jpg
+
+No Node.js installation needed for this static-preview stage.

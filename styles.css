@@ -1,0 +1,52 @@
+/* VIP Loyalty App — Step 1. Real venue selection buttons + two branded login screens. */
+:root { font-family: Arial, Helvetica, sans-serif; color: #f7f4ea; background: #07100a; -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+html,body { margin: 0; min-height: 100%; }
+body { min-height: 100svh; }
+button,input { font: inherit; }
+button { cursor: pointer; }
+.is-hidden { display: none !important; }
+/* Home art scales as a single piece; click areas remain aligned at every width. */
+.home-screen { min-height: 100svh; display: flex; justify-content: center; background: #060f0b; }
+.home-artwork { position: relative; width: min(100%,530px); line-height: 0; box-shadow: 0 0 80px #0009; }
+.home-artwork > img { display: block; width: 100%; height: auto; user-select: none; }
+.venue-hitarea { position: absolute; z-index: 2; left: 5.1%; width: 89.2%; border: 2px solid transparent; background: transparent; border-radius: 25px; -webkit-tap-highlight-color: transparent; }
+.venue-oneills { top: 41.4%; height: 15.4%; }
+.venue-junction { top: 58.3%; height: 15.6%; }
+.venue-oneills:hover { box-shadow: 0 0 25px #1aff8888; }
+.venue-junction:hover { box-shadow: 0 0 25px #ff405888; }
+.venue-hitarea:focus-visible { outline: 3px solid white; outline-offset: -3px; }
+/* Full-screen venue login backgrounds use the matching approved branding. */
+.login-screen { --accent: #eac978; --tint: 10,23,15; position: relative; isolation: isolate; display:flex; justify-content:center; min-height:100svh; padding: 0 0 env(safe-area-inset-bottom,0); overflow:hidden; background:#09120e; }
+.login-screen::before { content:""; position:absolute; inset:0; z-index:-2; background: center center / cover no-repeat url('assets/oneills-login-bg.jpg'); }
+.login-screen::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#02080777 0%,#07140caa 36%,#06100df5 78%,#010704 100%); }
+.login-screen.junction-theme { --accent: #ff4b50; --tint: 31,5,8; background:#1a080c; }
+.login-screen.junction-theme::before { background-image:url('assets/junction-login-bg.jpg'); }
+.login-screen.junction-theme::after { background:linear-gradient(180deg,#16040877 0%,#210408d4 35%,#110608f5 80%,#050304 100%); }
+.login-content { width:min(100%,480px); min-height:100svh; display:flex; flex-direction:column; align-items:stretch; padding:calc(20px + env(safe-area-inset-top,0px)) 24px calc(22px + env(safe-area-inset-bottom,0px)); }
+.back-button { align-self:flex-start; color:#fff3dc; border:1px solid #ffffff33; background:#03060366; padding:10px 13px; border-radius:50px; font-size:14px; font-weight:600; }
+.back-button:hover { border-color:var(--accent); }
+.brand-header { margin: clamp(12px,3vh,30px) auto clamp(12px,3vh,28px); text-align:center; width:100%; }
+.venue-logo { width:100%; height:auto; max-height:clamp(175px,28vh,255px); object-fit:contain; filter:drop-shadow(0 9px 20px #000b); }
+.brand-eyebrow { margin:-3px 0 0; font-size:12px; font-weight:800; letter-spacing:.24em; color:var(--accent); text-shadow:0 2px 6px #000b; }
+.login-panel { width:100%; border:1px solid #eac97855; background:#06120dda; padding:24px 20px 16px; border-radius:19px; box-shadow:0 20px 50px #0008; backdrop-filter:blur(9px); }
+.junction-theme .login-panel { border-color:#ff4b5066; background:#16070ce5; }
+.login-panel h1 { font-size:clamp(25px,6vw,31px); margin:0 0 6px; color:#fff; text-align:center; }
+.login-intro { margin:0 0 24px; font-size:13px; color:#e6e3dacc; text-align:center; line-height:1.45; }
+label { display:block; color:#f5eee5; font-size:13px; margin:15px 0 8px; font-weight:700; }
+.field-shell { display:flex; align-items:center; background:#fffcf4; border:1px solid #e7dabc; border-radius:10px; overflow:hidden; height:52px; }
+.field-shell:focus-within { outline:3px solid var(--accent); outline-offset:2px; }
+.field-icon { display:flex; align-items:center; justify-content:center; width:43px; text-align:center; font-size:24px; color:#8c7a5c; flex-shrink:0; }
+.field-shell input { min-width:0; flex:1; border:0; outline:0; height:100%; padding:10px 10px 10px 0; background:transparent; color:#161614; font-size:17px; }
+.field-shell input::placeholder { color:#7a7974; }
+.pin-toggle { border:0; background:transparent; color:#3c4e46; font-weight:700; padding:12px; font-size:13px; }
+.login-button { width:100%; border:0; border-radius:10px; background:linear-gradient(#f9e19c,#c7a15c); color:#19140d; font-size:18px; font-weight:900; padding:15px 20px; margin:24px 0 12px; box-shadow:0 5px 18px #e9c96a22; display:flex; justify-content:center; align-items:center; gap:16px; }
+.login-button:hover { filter:brightness(1.08); }
+.login-button:focus-visible,.pin-toggle:focus-visible,.back-button:focus-visible,.forgot-pin:focus-visible { outline:3px solid white; outline-offset:3px; }
+.junction-theme .login-button { background:linear-gradient(#fa6267,#ca1b29); color:white; box-shadow:0 5px 18px #ff374433; }
+.forgot-pin { display:block; width:max-content; margin:0 auto; background:transparent; border:0; border-bottom:1px solid var(--accent); padding:6px 0 2px; color:var(--accent); font-size:13px; }
+.status-message { color:#c3c5bd; font-size:12px; text-align:center; line-height:1.45; margin:14px 0 0; }
+.login-footer { text-align:center; color:#e7e5dcc2; margin:auto 0 0; padding-top:24px; font-size:12px; }
+.login-footer .footer-lock {display:inline-flex; align-items:center; vertical-align:middle; margin-right:5px; color:var(--accent); }
+@media (min-width:540px) { .home-screen {align-items:center;} .home-artwork { width:min(530px,56.25svh); } }
+@media (max-height:710px) { .login-content { padding-top:12px; } .brand-header{margin:8px auto;} .venue-logo { max-height:145px; } .login-panel { padding-top:15px;} .login-intro {margin-bottom:11px;} label {margin-top:10px;} .login-button{margin-top:14px;} }
