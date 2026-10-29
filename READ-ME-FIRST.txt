@@ -1,21 +1,27 @@
-VIP APP — ANDROID INSTALL BUTTON + GOLD VIP ICON
+ANDROID HOME-SCREEN BLACK GAP FIX — ONE ADD-ON FILE
 
-1. Extract this ZIP.
-2. Copy the entire 'icons' folder plus 'manifest.webmanifest' and 'vip-install.js' into the ROOT of your VS Code oniells-junction-vip project (same level as index.html and app.js).
-3. Open index.html. Immediately before </head>, add:
+1) Extract android-screen-fix.js into the root folder of your
+   oniells-junction-vip project (alongside index.html and vip-install.js).
 
-<link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/icons/vip-180.png">
-<script src="/vip-install.js" defer></script>
+2) In index.html, find the single closing </head> tag.
+   Insert ONE new line immediately before it:
 
-4. Save, then use VS Code terminal:
+   <script src="/android-screen-fix.js" defer></script>
 
-git add -A
-git commit -m "Add VIP Android install button and app icon"
-git push origin main
+3) Save, then in the VS Code terminal run:
+   git add -A
+   git commit -m "Fix Android home screen black gap"
+   git push origin main
 
-5. Wait for Vercel Ready. Open the root app URL in Chrome on an Android phone (NOT in WhatsApp/Instagram's built-in browser):
-https://oniells-junction-vip.vercel.app/
-Tap 'Install VIP App'. Accept Chrome's install prompt. If no prompt is ready, the button will show Chrome's menu instructions.
+4) When Vercel is Ready, refresh the website on Android Chrome.
 
-SAFETY: Do NOT change or replace OneSignalSDKWorker.js or install another service worker; it handles existing push subscriptions. Installing as PWA does not require publishing an APK or Google Play listing.
+WHAT THIS DOES
+- On Android screens narrower than 540px, makes the approved home
+  image and its clickable venue buttons fill the visible screen height.
+- Changes nothing on iPhone, or on the login, membership card, or admin pages.
+- Does not touch vip-install.js or the OneSignal worker.
+
+NOTE: To fill taller Android screens without clipping text or clickable
+buttons, the home artwork scales vertically to fit. If you later prefer
+an undistorted crop/extended-background treatment, that can be designed
+separately for Android aspect ratios.
