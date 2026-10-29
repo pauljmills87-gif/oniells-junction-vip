@@ -1,0 +1,395 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#09160f">
+<title>VIP Admin Dashboard</title>
+
+<style>
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #f7f1e5;
+  background: radial-gradient(
+    ellipse at top, #193422, #07100b 65%
+  );
+}
+
+button, select { font: inherit; }
+button { cursor: pointer; }
+a { color: #ecd09a; }
+
+.loading {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 25px;
+  text-align: center;
+  color: #edcf90;
+}
+
+.shell {
+  max-width: 940px;
+  margin: auto;
+  padding: 25px 16px 45px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  color: #e0bf7f;
+  font-size: 11px;
+  letter-spacing: .18em;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(28px, 5vw, 42px);
+  margin: 6px 0;
+  color: #e8c47e;
+}
+
+.muted {
+  color: #c6c4b7;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.logout {
+  background: transparent;
+  border: 1px solid #c2a56e;
+  border-radius: 9px;
+  color: #f2dbaa;
+  padding: 11px 16px;
+}
+
+.brands {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px 0;
+  padding: 15px;
+  background: #0d1912;
+  border: 1px solid #a78a5055;
+  border-radius: 16px;
+}
+
+.brands img {
+  width: 45%;
+  max-width: 195px;
+  height: 83px;
+  object-fit: contain;
+}
+
+.rule {
+  height: 45px;
+  width: 1px;
+  background: #af8c52;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 22px 0;
+}
+
+select {
+  padding: 11px;
+  background: #fcf8ef;
+  color: #1a231d;
+  border: 1px solid #bca371;
+  border-radius: 9px;
+  max-width: 100%;
+}
+
+.role {
+  border: 1px solid #b79b65;
+  border-radius: 40px;
+  padding: 8px 12px;
+  color: #f3d491;
+  font-size: 12px;
+}
+
+h2 { font-size: 18px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.tile {
+  min-height: 130px;
+  text-align: left;
+  padding: 18px;
+  background: linear-gradient(130deg, #16281a, #111610);
+  color: #f8f0de;
+  border: 1px solid #b99a6266;
+  border-radius: 15px;
+}
+
+.tile:hover,
+.tile:focus-visible {
+  border-color: #f0d28a;
+}
+
+.symbol {
+  font-size: 25px;
+  display: block;
+  margin-bottom: 12px;
+  color: #efd08e;
+}
+
+.tile strong {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+.tile small {
+  display: block;
+  color: #bdbeb0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.detail {
+  margin-top: 17px;
+  padding: 18px;
+  border: 1px solid #bb9b64;
+  border-radius: 15px;
+  background: #161d15;
+}
+
+.detail h3 {
+  margin: 0 0 7px;
+  color: #f0d396;
+}
+
+footer {
+  padding-top: 24px;
+  text-align: center;
+  color: #999d8e;
+  font-size: 12px;
+}
+
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .tile {
+    min-height: 145px;
+    padding: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading" class="loading" role="status">
+  Checking secure admin session...
+</div>
+
+<main id="dashboard" class="shell" hidden>
+
+  <header class="top">
+    <div>
+      <div class="eyebrow">
+        O'NEILLS × THE JUNCTION
+      </div>
+      <h1>VIP ADMIN</h1>
+      <div class="muted">
+        Member management dashboard
+      </div>
+    </div>
+
+    <button id="logout" class="logout" type="button">
+      Log out
+    </button>
+  </header>
+
+  <div class="brands">
+    <img src="assets/oneills-logo.png" alt="O'Neills">
+    <span class="rule"></span>
+    <img src="assets/junction-logo.png" alt="The Junction">
+  </div>
+
+  <div class="toolbar">
+    <label for="venue">
+      Manage venue
+      <select id="venue">
+        <option value="both">Both venues</option>
+        <option value="ON">O'Neills — Vilamoura</option>
+        <option value="JR">The Junction — Almancil</option>
+      </select>
+    </label>
+    <span id="role" class="role">Administrator</span>
+  </div>
+
+  <h2>Management tools</h2>
+
+  <div class="grid">
+
+    <button class="tile" data-tool="add">
+      <span class="symbol">＋</span>
+      <strong>Add Customer</strong>
+      <small>Create membership and 4-digit PIN</small>
+    </button>
+
+    <button class="tile" data-tool="members">
+      <span class="symbol">♙</span>
+      <strong>VIP Members</strong>
+      <small>Search, update and deactivate</small>
+    </button>
+
+    <button class="tile" data-tool="word">
+      <span class="symbol">✦</span>
+      <strong>Word of the Day</strong>
+      <small>Daily venue verification word</small>
+    </button>
+
+    <button class="tile" data-tool="qr">
+      <span class="symbol">▦</span>
+      <strong>App QR Code</strong>
+      <small>Permanent customer access</small>
+    </button>
+
+    <button class="tile" data-tool="broadcast">
+      <span class="symbol">◉</span>
+      <strong>Broadcast</strong>
+      <small>Event posters and notifications</small>
+    </button>
+
+    <button class="tile" data-tool="settings">
+      <span class="symbol">⚙</span>
+      <strong>Venue Settings</strong>
+      <small>Branding and staff access</small>
+    </button>
+
+  </div>
+
+  <section id="detail" class="detail" hidden>
+    <h3 id="detail-title"></h3>
+    <p id="detail-description" class="muted"></p>
+  </section>
+
+  <footer>
+    VIP Loyalty App · Private administrator area
+  </footer>
+</main>
+
+<script>
+const loading = document.getElementById("loading");
+const dashboard = document.getElementById("dashboard");
+
+const details = {
+  add: [
+    "Add Customer",
+    "Next we connect the secure member registration form."
+  ],
+  members: [
+    "VIP Members",
+    "Member search, PIN resets and account controls are next."
+  ],
+  word: [
+    "Word of the Day",
+    "Each bar will have its own daily verification word."
+  ],
+  qr: [
+    "App QR Code",
+    "This will display the permanent customer QR code."
+  ],
+  broadcast: [
+    "Broadcast",
+    "Send posters and push notifications to opted-in members."
+  ],
+  settings: [
+    "Venue Settings",
+    "Manage branding and authorised administrators."
+  ]
+};
+
+async function startDashboard() {
+  try {
+    const response = await fetch("/api/admin-session", {
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+
+    const session = await response.json();
+
+    if (!response.ok || !session.ok) {
+      throw new Error("Not authorised");
+    }
+
+    document.getElementById("role").textContent =
+      session.role === "owner"
+        ? "Owner access"
+        : "Manager access";
+
+    loading.hidden = true;
+    dashboard.hidden = false;
+
+  } catch {
+    loading.textContent = "Session not verified. Redirecting...";
+    window.location.replace("/admin.html");
+  }
+}
+
+document.querySelectorAll("[data-tool]").forEach(button => {
+  button.addEventListener("click", () => {
+    const [title, description] = details[button.dataset.tool];
+
+    document.getElementById("detail-title").textContent = title;
+    document.getElementById("detail-description").textContent =
+      description;
+
+    document.getElementById("detail").hidden = false;
+  });
+});
+
+document.getElementById("logout").addEventListener(
+  "click",
+  async () => {
+    const button = document.getElementById("logout");
+    button.disabled = true;
+
+    try {
+      const response = await fetch("/api/admin-logout", {
+        method: "POST",
+        credentials: "same-origin"
+      });
+
+      if (!response.ok) throw new Error("Logout failed");
+
+      window.location.replace("/admin.html");
+    } catch {
+      button.disabled = false;
+      alert("Could not sign out. Please try again.");
+    }
+  }
+);
+
+startDashboard();
+</script>
+
+</body>
+</html>
